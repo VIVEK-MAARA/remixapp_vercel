@@ -1,8 +1,8 @@
 import { useLoaderData } from "@remix-run/react";
 
 export default function Index() {
-	const {todoJson, text, tokenObj, apiDevJson} = useLoaderData()
-	console.log(todoJson, text, tokenObj, apiDevJson);
+	const {todoJson, text, tokenObj, apiDevJson, dliObj} = useLoaderData()
+	console.log(todoJson, text, tokenObj, apiDevJson, dliObj);
     return (
         <div>
 			<h1>Remix Test App</h1>
@@ -29,14 +29,19 @@ export async function loader(){
 	console.log(tokenObj, "token object")
 	result.tokenObj = tokenObj
 
-	// try {
-		const apiDevResponse = await fetch("https://api-dev.nvidia.com/broadcast/v1/client/listBusinessUnit?locale=en-us")
+	const dliResponse = await fetch('https://api-stage.nvidia.com/DLI/v1/dliInstructor?instructorId=0031W00002Hl7guQAB')
+	const dliObj = await dliResponse.json()
+	console.log(dliObj, "token object")
+	result.dliObj = dliObj
+
+	try {
+		const apiDevResponse = await fetch("https://api-stage.nvidia.com/broadcast/v1/client/listBusinessUnit?locale=en-us")
 		const apiDevJson = await apiDevResponse.json()
 		console.log(apiDevJson)
 		result.apiDevJSON = apiDevJson
-	// } catch (error) {
-	// 	console.log(error);
-	// }
+	} catch (error) {
+		console.log(error);
+	}
 
 	return result
 }
