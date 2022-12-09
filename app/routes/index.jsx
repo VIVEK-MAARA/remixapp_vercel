@@ -29,14 +29,14 @@ export async function loader(){
 	console.log(tokenObj, "token object")
 	result.tokenObj = tokenObj
 
-	try {
+	// try {
 		const apiDevResponse = await fetch("https://api-dev.nvidia.com/broadcast/v1/client/listBusinessUnit?locale=en-us")
 		const apiDevJson = await apiDevResponse.json()
 		console.log(apiDevJson)
 		result.apiDevJSON = apiDevJson
-	} catch (error) {
-		console.log(error);
-	}
+	// } catch (error) {
+	// 	console.log(error);
+	// }
 
 	return result
 }
